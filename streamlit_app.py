@@ -32,4 +32,4 @@ def my_function():
 # Create a button
 if st.button('Click me'):
     # Call the function when the button is clicked
-    ist.stitch_image()
+    ist.stitch_images(uploaded_files[0],uploaded_files[1])
