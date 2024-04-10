@@ -1,6 +1,3 @@
 streamlit
 scikit-learn
 opencv-python
-tempfile
-cv2
-image_stitching
