@@ -4,32 +4,31 @@ import pandas as pd
 import streamlit as st
 import image_stitching as ist
 
+st.set_page_config(page_title="GRP6 DIGIMAP - IMAGE STITCHING", layout="wide", page_icon="🤖")
+
 """
-# Welcome to Streamlit!
+# Welcome to ImageStitching!
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
-
-In the meantime, below is an example of what you can do with just a few lines of code:
+Make your dream pics into one whole story! Upload images you want to make into a Panoramic Image
 """
-
-st.subheader("Hi, I am Kielo")
+st.subheader("CALVIN CORONADO | MICHELLE MARTINEZ | KIELO MERCADO | GHRAZIELLE RAMOS | VALEN SALIG")
 
 # Upload multiple image files
 uploaded_files = st.file_uploader("Upload two images", type=['png', 'jpg', 'jpeg'], accept_multiple_files=True)
 
+# Check if there are two or more uploaded images
+if uploaded_files is not None and len(uploaded_files) >= 2:
+    # Create a button
+    if st.button('Start Stitching'):
+        # Call the function when the button is clicked
+        ist.stitch_images(uploaded_files)
+else:
+    st.warning("Please upload at least two images to start stitching.")
+    
 if uploaded_files is not None:
+    # Display each uploaded image
     for uploaded_file in uploaded_files:
-        # Display each uploaded image
         st.image(uploaded_file)
         
-        
-        
-def my_function():
-    st.write("Button was clicked!")
 
-# Create a button
-if st.button('Click me'):
-    # Call the function when the button is clicked
-    ist.stitch_images(uploaded_files[0],uploaded_files[1])
+

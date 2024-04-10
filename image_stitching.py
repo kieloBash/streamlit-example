@@ -3,7 +3,7 @@ import cv2
 from matplotlib import pyplot as plt
 import random
 import streamlit as st
-
+import tempfile
 
 def initial_alignment(img1, img2):
     # Detect SIFT keypoints and descriptors
@@ -75,10 +75,18 @@ def stitching(img1, img2):
 
     return stitched_image
 
-def stitch_images(img1,img2):
+def stitch_images(uploaded_files):
     # Load input images
-    # img1 = cv2.imread('example1.jpg')
-    # img2 = cv2.imread('example1_2.jpg')
+    temp_files = []
+    for uploaded_file in uploaded_files:
+        temp_file = tempfile.NamedTemporaryFile(delete=False)
+        temp_file.write(uploaded_file.read())
+        temp_file.close()
+        temp_files.append(temp_file.name)
+    
+    # Read the temporary files using OpenCV
+    img1 = cv2.imread(temp_files[0])
+    img2 = cv2.imread(temp_files[1])
     
     # Step 1: Initial Alignment
     img1_kp, img2_kp, kp1, kp2, good_matches = initial_alignment(img1, img2)
@@ -95,8 +103,5 @@ def stitch_images(img1,img2):
     # Step 5: Stitching
     stitched_image = stitching(img1_refined, img2_refined)
     
-    st.image(stitched_image)
-
     if stitched_image is not None:
-        plt.imshow(stitched_image), plt.title('Stitched Image')
-        plt.show()
+        st.image(stitched_image, caption='Stitched Image')
