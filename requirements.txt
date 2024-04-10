@@ -1,6 +1,5 @@
-altair
-pandas
 streamlit
-opencv-python-headless
 scikit-learn
 opencv-python
+tempfile
+cv2
